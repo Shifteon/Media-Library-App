@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.appcompat.widget.LinearLayoutCompat-->
+<!--    layout_width=""-->
+<!--    layout_height="">-->
+<!--<navigation xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/navigation\_graph"-->
+<!--    app:startDestination="@id/fragmentOne">-->
+<!--    <fragment-->
+<!--        android:id="@+id/fragmentOne"-->
+<!--        android:name="com.example.android.navigation.FragmentOne"-->
+<!--        android:label="FragmentOne">-->
+<!--        <action-->
+<!--            android:id="@+id/action\_fragmentOne\_to\_fragmentTwo"-->
+<!--            app:destination="@id/fragmentTwo" />-->
+<!--    </fragment>-->
+<!--    <fragment-->
+<!--        android:id="@+id/fragmentTwo"-->
+<!--        android:name="com.example.android.navigation.FragmentTwo"-->
+<!--        android:label="FragmentTwo">-->
+<!--        <argument-->
+<!--            android:name="ShowAppBar"-->
+<!--            android:defaultValue="true" />-->
+<!--    </fragment>-->
+<!--</navigation>-->
+<!--</androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/card2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAddMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            tools:ignore="VectorDrawableCompat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true" />
+</androidx.drawerlayout.widget.DrawerLayout>
