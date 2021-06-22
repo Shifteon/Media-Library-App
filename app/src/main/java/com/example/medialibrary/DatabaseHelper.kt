@@ -15,7 +15,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", 
         createAuthorTable(db)
         createBookTable(db)
         createGenreTable(db)
-        createBookGenreTable(db)
+//        createBookGenreTable(db)
         createSeriesTable(db)
 
 //        db?.close()
@@ -59,7 +59,9 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", 
         db?.execSQL(createGenreTableStatement)
     }
 
+    // This function doesn't work for some reason. It crashes everything
     private fun createBookGenreTable(db: SQLiteDatabase?) {
+        TODO("Fix this. It doesn't work. It crashes everything")
         val createBookGenreTableStatement = "CREATE TABLE IF NOT EXISTS book_genre (\n" +
                 "       genre_id INTEGER NOT NULL,\n" +
                 "       book_id  INTEGER NOT NULL,\n" +
