@@ -3,6 +3,7 @@ package com.example.medialibrary
 //import android.support.v4.content.ContextCompat
 //import android.support.v7.graphics.Palette
 
+import android.app.DownloadManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -63,27 +64,18 @@ class MediaActivity : AppCompatActivity() {
         genre.text = details[2]
         series.text = details[3]
         year.text = details[4]
+    }
 
-//        val actionBar =
+    private fun getDesc() {
+        // TODO: 6/30/2021 Access api to populate the description 
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setStatusBarColor(pictureFile: File) {
         val window = this.window
-        val imageSrc = findViewById<ImageView>(R.id.ivCover)
-
-//        val image = BitmapFactory.decodeResource(resources, R.drawable.skyward_cover)
         val image = BitmapFactory.decodeFile(pictureFile.path)
         Palette.from(image).generate(Palette.PaletteAsyncListener {
-//            val vibrantSwatch = it?.vibrantSwatch
             val darkMutedSwatch = it?.darkMutedSwatch
-//            val lightMutedSwatch = it?.lightMutedSwatch
-//            val darkVibrantSwatch = it?.darkVibrantSwatch
-//            val lightVibrantSwatch = it?.lightVibrantSwatch
-
-//            if (vibrantSwatch != null) {
-//                this.supportActionBar?.setBackgroundDrawable(ColorDrawable(vibrantSwatch.rgb))
-//            }
             if (darkMutedSwatch!= null) {
                 window.statusBarColor = darkMutedSwatch.rgb
             }

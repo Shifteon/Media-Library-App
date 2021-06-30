@@ -9,7 +9,11 @@ import android.os.Environment
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
+import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,14 +25,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        display()
-
-//        createViews()
+        createViews()
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAddMedia)
         fab.setOnClickListener { press() }
-
-        create()
 
         // Nav stuff
 //        val appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -49,32 +49,7 @@ class MainActivity : AppCompatActivity() {
     protected override fun onResume() {
         super.onResume()
         // Display all the books again once we come back to the activity
-        display()
-//        createViews()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.P)
-    private fun display() {
-        val db = DatabaseHelper(this)
-        val books = db.getAllBooks() // Get all the books
-        var titles = mutableListOf<String>()
-        for (book in books) {
-            titles.add(book.title)
-        }
-
-        // Create array adapter and display all the books
-        val arrayAdapter = ArrayAdapter<Book>(this, android.R.layout.simple_list_item_1, books)
-//        val arrayAdapter = ArrayAdapter<Book>(this, android.R.layout.simple_gallery_item, books)
-        val lv = findViewById<ListView>(R.id.lvMedia)
-        lv.adapter = arrayAdapter
-
-        // Set a click listener on all list items
-        lv.setOnItemClickListener { parent, view, position, id ->
-            val element = parent.getItemAtPosition(position)
-            val intent = Intent(this, MediaActivity::class.java)
-            intent.putExtra("title", element.toString())
-            startActivity(intent)
-        }
+        createViews()
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
@@ -82,13 +57,35 @@ class MainActivity : AppCompatActivity() {
         val db = DatabaseHelper(this)
         val books = db.getAllBooks() // Get all the books
 
-        val linearLayout = findViewById<LinearLayout>(R.id.llBooks)
+        val main = findViewById<ConstraintLayout>(R.id.main)
+        var id = 1
 
         for (book in books) {
             val imageView = ImageView(this)
-//            imageView.adjustViewBounds
-            val layoutParams = imageView.layoutParams
-//            layoutParams.width = 200
+            val cardView = CardView(this)
+            cardView.id = id
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            cardView.addView(imageView, 500, 600)
+            main.addView(cardView, 500, 600)
+
+            var constraitSet = ConstraintSet()
+            constraitSet.clone(main)
+            // TODO: 6/30/2021 Make the books line up right even when there is no book to the right of the last book
+            if (cardView.id % 2 != 0) {
+                constraitSet.connect(cardView.id, ConstraintSet.LEFT, main.id, ConstraintSet.LEFT, 16)
+                constraitSet.connect(cardView.id, ConstraintSet.RIGHT, cardView.id + 1, ConstraintSet.LEFT, 16)
+            } else {
+                constraitSet.connect(cardView.id, ConstraintSet.LEFT, cardView.id - 1, ConstraintSet.RIGHT, 16)
+                constraitSet.connect(cardView.id, ConstraintSet.RIGHT, main.id, ConstraintSet.RIGHT, 16)
+            }
+            if (cardView.id < 3) {
+                constraitSet.connect(cardView.id, ConstraintSet.TOP, main.id, ConstraintSet.TOP, 16)
+            } else {
+                constraitSet.connect(cardView.id, ConstraintSet.TOP, cardView.id - 2, ConstraintSet.BOTTOM, 16)
+            }
+            constraitSet.applyTo(main)
+
+
             // Get the image uri
             val pictureFile = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),book.image)
             val pictureUri =
@@ -96,8 +93,13 @@ class MainActivity : AppCompatActivity() {
             // Set the image
             Glide.with(this).load(pictureUri).diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true).into(imageView)
+            imageView.setOnClickListener {
+                val intent = Intent(this, MediaActivity::class.java)
+                intent.putExtra("title", book.toString())
+                startActivity(intent)
+            }
 
-            linearLayout.addView(imageView)
+            id++
         }
     }
 
@@ -105,10 +107,5 @@ class MainActivity : AppCompatActivity() {
         val newIntent = Intent(this, AddBook::class.java)
         Toast.makeText(applicationContext, "You pushed the button!", Toast.LENGTH_SHORT).show()
         startActivity(newIntent)
-    }
-
-    private fun create() {
-        val view = findViewById<View>(R.id.main)
-
     }
 }
