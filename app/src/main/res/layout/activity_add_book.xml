@@ -62,12 +62,11 @@
         android:id="@+id/btnBookSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:text="Add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etBookYear" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCover" />
 
     <EditText
         android:id="@+id/etBookYear"
@@ -91,4 +90,16 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBookSubmit" />
+
+    <Button
+        android:id="@+id/btnCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Cover"
+        app:backgroundTint="@color/cerulean"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etBookYear" />
 </androidx.constraintlayout.widget.ConstraintLayout>

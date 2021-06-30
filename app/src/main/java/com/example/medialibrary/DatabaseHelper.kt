@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
 import androidx.annotation.RequiresApi
-import layout.Book
 
 @RequiresApi(Build.VERSION_CODES.P)
 class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", null, 1) {
@@ -37,6 +36,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", 
                 "       year INTEGER(4),\n" +
                 "       author_id INTEGER,\n" +
                 "       series_id INTEGER,\n" +
+                "       image TEXT,\n" +
                 "       FOREIGN KEY(author_id) REFERENCES author(author_id),\n" +
                 "       FOREIGN KEY(series_id) REFERENCES series(series_id)\n" +
                 ");"
@@ -166,6 +166,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", 
         cv.put("year", book.year)
         cv.put("author_id", author_id)
         cv.put("series_id", series_id)
+        cv.put("image", book.image)
 
         // Insert the book
         val insert = db.insert("book", null, cv)
@@ -221,7 +222,8 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, "media.db", 
             val year = cursor.getInt(2)
             val author = getAuthorById(cursor.getInt(3))
             val series = getSeriesById(cursor.getInt(4))
-            val book = Book(title, author, mutableListOf("None"), series, year)
+            val image = cursor.getString(5)
+            val book = Book(title, author, mutableListOf("None"), series, year, image)
             // Add book to list
             books.add(book)
         }
