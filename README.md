@@ -5,7 +5,7 @@ you can store information about all your media. At the moment, only books are im
 To add a book, simply click the FAB at the bottom and enter the book's information. You can view
 a books information by tapping on the books cover on the main page.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/mI1QFUvoos4)
 
 # Development Environment
 
