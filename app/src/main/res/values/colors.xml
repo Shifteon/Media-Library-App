@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--  https://coolors.co/5e0b15-490910-90323d-d9cab3-cfbca0-bc8034-8c7a6b  -->
+<!--  https://coolors.co/95b8d1-7fa9c7-d1f0b1-c2eb98-000000  -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -12,4 +14,8 @@
     <color name="cerulean_dark">#7FA9C7</color>
     <color name="tea_green">#D1F0B1</color>
     <color name="tea_green_dark">#C2EB98</color>
+    <color name="rosewood">#5E0B15</color>
+    <color name="rosewood_dark">#490910</color>
+    <color name="bone">#D9CAB3</color>
+    <color name="bone_dark">#CFBCA0</color>
 </resources>
