@@ -25,11 +25,6 @@ import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 
 class AddBook : AppCompatActivity() {
-//    private val bookTitle: String
-//    private val author
-//    private val series
-//    private val genre
-//    private val year
 
     private var bookTitle = ""
 
@@ -80,6 +75,7 @@ class AddBook : AppCompatActivity() {
                     bookTitle = findViewById<TextView>(R.id.etBookTitle).text.toString()
                     val image = bookTitle.replace(" ", "_").lowercase() + "_cover.jpg"
 
+                    // Copy the cover to our directory
                     val inStream = FileInputStream(it.fileDescriptor)
                     val outStream = FileOutputStream(File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), image))
                     val inChannel = inStream.channel

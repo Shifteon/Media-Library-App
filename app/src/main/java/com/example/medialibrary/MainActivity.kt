@@ -1,19 +1,16 @@
 package com.example.medialibrary
 
 import android.content.Intent
-import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
-import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.FileProvider
-import androidx.core.view.marginLeft
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,22 +65,22 @@ class MainActivity : AppCompatActivity() {
             cardView.addView(imageView, 500, 600)
             main.addView(cardView, 500, 600)
 
-            var constraitSet = ConstraintSet()
-            constraitSet.clone(main)
+            var constraintSet = ConstraintSet()
+            constraintSet.clone(main)
             // TODO: 6/30/2021 Make the books line up right even when there is no book to the right of the last book
             if (cardView.id % 2 != 0) {
-                constraitSet.connect(cardView.id, ConstraintSet.LEFT, main.id, ConstraintSet.LEFT, 16)
-                constraitSet.connect(cardView.id, ConstraintSet.RIGHT, cardView.id + 1, ConstraintSet.LEFT, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.LEFT, main.id, ConstraintSet.LEFT, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.RIGHT, cardView.id + 1, ConstraintSet.LEFT, 16)
             } else {
-                constraitSet.connect(cardView.id, ConstraintSet.LEFT, cardView.id - 1, ConstraintSet.RIGHT, 16)
-                constraitSet.connect(cardView.id, ConstraintSet.RIGHT, main.id, ConstraintSet.RIGHT, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.LEFT, cardView.id - 1, ConstraintSet.RIGHT, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.RIGHT, main.id, ConstraintSet.RIGHT, 16)
             }
             if (cardView.id < 3) {
-                constraitSet.connect(cardView.id, ConstraintSet.TOP, main.id, ConstraintSet.TOP, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.TOP, main.id, ConstraintSet.TOP, 16)
             } else {
-                constraitSet.connect(cardView.id, ConstraintSet.TOP, cardView.id - 2, ConstraintSet.BOTTOM, 16)
+                constraintSet.connect(cardView.id, ConstraintSet.TOP, cardView.id - 2, ConstraintSet.BOTTOM, 16)
             }
-            constraitSet.applyTo(main)
+            constraintSet.applyTo(main)
 
 
             // Get the image uri
